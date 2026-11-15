@@ -1,0 +1,128 @@
+html,
+body {
+  margin: 0;
+  padding: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+#map {
+  width: 100%; /* Adjust width to your desired size */
+  height: 100%; /* Adjust height to your desired size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+  border-radius: 8px; /* Optional: rounded corners */
+  position: relative;
+}
+
+
+#map svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+/* Shared colors for circles and legend items */
+#map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+/* Station circle styling */
+#map svg circle {
+  fill: var(--color);
+  fill-opacity: 0.6;
+  stroke: white;
+  stroke-width: 1px;
+  pointer-events: auto;
+}
+
+
+
+.station-tooltip {
+  position: fixed;
+  background: white;
+  color: black;
+  padding: 8px 12px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 9999;
+  display: none;
+}
+
+
+/* Time slider header */
+header {
+  display: flex;
+  gap: 1em;
+  align-items: baseline;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Push slider to the right */
+header label {
+  margin-left: auto;
+}
+
+/* Style the slider */
+#time-slider {
+  display: block;
+  width: 250px;
+}
+
+/* Keep the time display on its own line */
+#selected-time,
+#any-time {
+  display: block;
+}
+
+/* Style the any-time label */
+#any-time {
+  color: gray;
+  font-style: italic;
+}
+
+
+/* Legend container */
+.legend {
+  display: flex;
+  gap: 1px;
+  margin-block: 1em;
+}
+
+/* Individual legend blocks */
+.legend > div {
+  flex: 1;
+  background: var(--color);
+  padding: 0.5em 2em;
+  text-align: center;
+  color: #111;
+}
+
+/* First block */
+.legend > div:first-child {
+  text-align: left;
+  color: white;
+}
+
+/* Last block */
+.legend > div:last-child {
+  text-align: right;
+}
